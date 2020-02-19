@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Renders correctly 1`] = `
+exports[`App Renders correctly 1`] = `
 <div>
   <h2>
     Gift Giver
