@@ -4,7 +4,10 @@ import Gift from "./Gift";
 
 describe("Gift", () => {
 
-  const gift = shallow(<Gift />);
+  const mockRemove = jest.fn();
+  const id = 1;
+  const props = { gift: {id}, removeGift: mockRemove };
+  const gift = shallow(<Gift {...props}/>);
 
   it("Component renders correctly", () => {
     expect(gift).toMatchSnapshot();
@@ -24,6 +27,29 @@ describe("Gift", () => {
     it("updates the person in `state`", () => {
       expect(gift.state().person).toEqual(person);
     });
+  });
+
+  describe("When typing into the present input", () => {
+    const present = "Wallet";
+
+    beforeEach(() => {
+      gift.find(".input-present").simulate("change", {target: {value: present}});
+    });
+
+    it("updates the present in `state`", () => {
+      expect(gift.state().present).toEqual(present);
+    });
+
+  });
+
+  describe("When `Remove Gift` button is clicked", () => {
+    beforeEach(() => {
+      gift.find(".btn-remove").simulate("click");
+    });
+
+    it("calls removeGift callback", () => {
+      expect(mockRemove).toHaveBeenCalledWith(id);
+    })
   });
 
 });
